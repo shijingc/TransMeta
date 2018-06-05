@@ -1,0 +1,130 @@
+
+R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "TransMeta"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> options(pager = "console")
+> library('TransMeta')
+Loading required package: SKAT
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("F_ST")
+> ### * F_ST
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: F_ST
+> ### Title: A 9 by 9 symmetric matrix of the pair-wise F.st values for the 9
+> ###   ancestry groups from HMP3 data.
+> ### Aliases: F_ST
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(F_ST)
+> F_ST
+         [,1]   [,2]   [,3]    [,4]    [,5]   [,6]   [,7]    [,8]    [,9]
+ [1,] 0.00000 0.1123 0.0349 0.11145 0.14570 0.0310 0.1034 0.00400 0.15730
+ [2,] 0.11230 0.0000 0.0768 0.00450 0.17590 0.0709 0.1436 0.11220 0.18620
+ [3,] 0.03490 0.0768 0.0000 0.07670 0.13210 0.0350 0.0946 0.03400 0.14340
+ [4,] 0.11145 0.0045 0.0767 0.00000 0.17575 0.0696 0.1435 0.11165 0.18595
+ [5,] 0.14570 0.1759 0.1321 0.17575 0.00000 0.1329 0.0170 0.14150 0.00800
+ [6,] 0.03100 0.0709 0.0350 0.06960 0.13290 0.0000 0.0958 0.03200 0.14340
+ [7,] 0.10340 0.1436 0.0946 0.14350 0.01700 0.0958 0.0000 0.09800 0.02700
+ [8,] 0.00400 0.1122 0.0340 0.11165 0.14150 0.0320 0.0980 0.00000 0.15320
+ [9,] 0.15730 0.1862 0.1434 0.18595 0.00800 0.1434 0.0270 0.15320 0.00000
+> 
+> 
+> 
+> cleanEx()
+> nameEx("G_ind")
+> ### * G_ind
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: G_ind
+> ### Title: K matrix of the group-wise independent kernel structure for the
+> ###   9 ancestry groups from HMP3 data.
+> ### Aliases: G_ind
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> 
+> data(G_ind)
+> G_ind
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+ [1,]    1    0    0    0    0    0    0    0    0
+ [2,]    0    1    0    0    0    0    0    0    0
+ [3,]    0    0    1    0    0    0    0    0    0
+ [4,]    0    0    0    1    0    0    0    0    0
+ [5,]    0    0    0    0    1    0    0    0    0
+ [6,]    0    0    0    0    0    1    0    0    0
+ [7,]    0    0    0    0    0    0    1    0    0
+ [8,]    0    0    0    0    0    0    0    1    0
+ [9,]    0    0    0    0    0    0    0    0    1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Get_TransMeta")
+> ### * Get_TransMeta
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Get_TransMeta
+> ### Title: Single variant association test in the GWAS trans-ethnic
+> ###   meta-analysis
+> ### Aliases: Get_TransMeta
+> 
+> ### ** Examples
+> ## Please refer to the example in the Vignettes PDF manual 
+> 
+> 
+> cleanEx()
+> nameEx("get_K_indep")
+> ### * get_K_indep
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_K_indep
+> ### Title: Construct the group-wise independent kernel matrix K
+> ### Aliases: ' get_K_indep '
+> 
+> ### ** Examples
+> ## Please refer to the example in the Vignettes PDF manual 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.09 0 0.1 NA NA 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

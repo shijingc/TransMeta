@@ -1,0 +1,111 @@
+%\VignetteIndexEntry{TransMeta}
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage[tableposition=top]{caption}
+\usepackage{ifthen}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\title{TransMeta Package}
+\author{Jingchunzi (Jing) Shi, Seunggeun (Shawn) Lee}
+\maketitle
+
+\section{Overview}
+TransMeta package has functions to implement the kernel regression based random effect model for the single variant association test in the GWAS trans-ethnic meta-analysis. 
+
+\section{ Single variant association test in TransMeta}
+
+\subsection{The kernel matrix K}
+
+A kernel matrix K is required in order to carry out the association test. K can be either the genetic similarity kernel structure or the group-wise independent kernel structure. The fixation index F.st is required to construct the genetic similarity kernel structure. To construct the group-wise independent kernel structure, one can use the get\_K\_Indep function. If MAFs of SNPs are not available in each study, one can use the get\_K\_Fst function to construct the genetic similarity kernel structure based on the pari-wise F.st values from the International HapMap 3 Consortium. \\
+
+The argument ``FileName'' in both get\_K\_Indep and get\_K\_Fst is a vector of characters that list the file names of summary statistics for each GWAS and the file name of a data file that identifies each study's corresponding ancestry group. Specifically, the data files need to be stored in the same directory of the current R session; otherwise, one need to include the complete paths of those data files. In addition, 
+in the very last data file where each study's corresponding ancestry group is identified, the identifiers can only take value from the following 9 options: {CEU, CHD, GIH, JPT\_CHB, LWK, MEX, MKK, TSI, YRI}, where CEU refers to Utah residents with Northern and Western European ancestry from the CEPH collection; CHD refers to Chinese in Metropolitan Denver, Colorado; GIH refers to Gujarati Indians in Houston, Texas; JPT\_CHB refers to Japanese in Tokyo, Japan and Han Chinese in Beijing, China; LWK refers to Luhya in Webuye, Kenya; MEX refers to Mexican ancestry in Los Angeles, California; MKK refers to Maasai in Kinyawa, Kenya; TSI refers to Toscani in Italia; YRI refers to Yoruba in Ibadan, Nigeria.\\
+
+
+An example ``FileName'' (File.Name) contains file names of 6 GWAS dataset and the file name of a dataset that identifies the ancestry groups of those 6 GWAS.
+
+<<data>>=
+library(TransMeta)
+File.Name <- c("Data_1.txt", "Data_2.txt", "Data_3.txt",
+"Data_4.txt", "Data_5.txt", "Data_6.txt", 
+"Ancestry_Group.txt")
+n.study <- length(File.Name)-1
+objects <- list()
+for (i in 1:n.study) {
+	objects[[i]] <- read.table(File.Name[i],header = TRUE)
+	colnames(objects[[i]]) <- c("SNP", "N", "Test_Allele","Alt_Allele", 
+"MAF", "Beta", "SE", "P_Val")	
+}
+head(objects[[1]])
+head(objects[[n.study]])
+
+Population.Id <- read.table(File.Name[n.study+1])
+Population.Id
+@
+
+Both get\_K\_Indep and get\_K\_Fst return a square matrix K. The dimension of K equals the number of GWASs that are provided in ``FileName''. In our example, both get\_K\_Indep and get\_K\_Fst return a 6 by 6 matrix.
+
+
+<<SKAT1>>=
+# the genetic similarity kernel structure 
+get_K_Fst(File.Name)
+
+# the group-wise independent kernel structure
+get_K_indep(File.Name)
+
+@
+
+
+\subsection{ The single variant association test}
+
+
+The test statistic for detecting the association between genotype and phenotype is defined as $$T = \min \{ p_{\rho_1}, \ldots, p_{\rho_b} \},$$ where $0 \leq \rho_{1} \leq \rho_{2} \leq \ldots \leq \rho_{b} \leq 1$, and $p_{\rho}$ is the computed p-value based on the score statistic $$S_{\rho} = \widehat{\beta}^{'} \widehat{\Sigma}^{-1} [(1-\rho) \mathbf{K} +\rho \mathbf{1} \mathbf{1}^{'}] \widehat{\Sigma}^{-1}\widehat{\beta}. $$ 
+
+Thus, to compute the test statistic $T$ and its asymptotic p-value, the following inputs are needed: 1) a vector of effect size estimates $\widehat{\beta}$ and the corresponding covariance matrix $\widehat{\Sigma}$; 2) a sequence of $\rho$ values; and 3) the kernel matrix K. \\
+
+The Get\_TransMeta function is an implementation of the above mentioned association test. Its arguments include: 1) FileName: a vector of characters that list the file names of summary statistics for each GWAS and the file name of a data file that identifies each study's corresponding ancestry group; 2) type: whether the input summary statistics from each GWAS are effect size based or Z-score based; 3) K.type: whether the kernel matrix K is of the genetic similarity structure or of the group-wise independent structure; 4) K: the kernel matrix K; 5) r.all: a sequence of possible $\rho$ values; 6) method: a method to compute the p-value for the test statistic $T$. \\
+
+The returned values from the Get\_TransMeta function include: 1) the SNP id; 2) the computed p-value for test statistic $T$; 3) the computed p-value $p_{\rho_i}$ based on each score statistic $S_{\rho_i}$, where $\rho_{i} \in \{\rho_{1}, \ldots, \rho_{b}\}$; 4) the optimal $\rho$ value whose $ p_{\rho}$ is the smallest among all.
+
+
+<<SKAT11>>=
+# To run this code, first download and unzip example files
+
+##############################################
+# 	the group-wise kernel structure
+
+
+a1=Get_TransMeta(FileName = File.Name, K.type = "Indep" )
+head(a1)
+
+
+
+##############################################
+# 	the genetic similarity kernel structure, where F.st is 
+# estimated from HapMap 3 Consortium 
+
+
+<<SKAT12>>=
+a2=Get_TransMeta(FileName = File.Name, K.type = "Fst", K = get_K_Fst(File.Name))
+head(a2)
+
+
+##############################################
+# 	the genetic similarity kernel structure, where F.st is 
+# estimated from the input data
+
+
+<<SKAT13>>=
+a3=Get_TransMeta(FileName = File.Name, K.type = "Fst")
+head(a3)
+@
+
+
+
+\end{document}
+
+

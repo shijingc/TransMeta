@@ -1,0 +1,6 @@
+##### Functions #####
+export (Get_TransMeta, get_K_Fst, get_K_indep)
+
+##### Dependent Package #####
+import(SKAT)
+

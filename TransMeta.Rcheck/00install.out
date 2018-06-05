@@ -1,0 +1,12 @@
+* installing *source* package 'TransMeta' ...
+** R
+** data
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+*** arch - i386
+*** arch - x64
+* DONE (TransMeta)

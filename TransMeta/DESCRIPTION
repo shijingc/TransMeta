@@ -1,0 +1,11 @@
+Package: TransMeta
+Type: Package
+Title: A novel random effect model for GWAS trans-ethnic meta-analysis 
+Version: 0.2
+Date: 2015-10-06
+Author: Jingchunzi Shi, Seunggeun Lee 
+Maintainer: Jingchunzi (Jing) Shi <shijingc@umich.edu>
+Description: A kernel regression based random effect model for testing single variant association in GWAS trans-ethnic meta-analysis. 
+License: GPL (>= 2)
+Depends: SKAT, R (>= 2.13.0)
+

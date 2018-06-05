@@ -1,0 +1,14 @@
+F_ST                    A 9 by 9 symmetric matrix of the pair-wise F.st
+                        values for the 9 ancestry groups from HMP3
+                        data.
+G_ind                   K matrix of the group-wise independent kernel
+                        structure for the 9 ancestry groups from HMP3
+                        data.
+Get_TransMeta           Single variant association test in the GWAS
+                        trans-ethnic meta-analysis
+TransMeta-package       A novel random effect model for GWAS
+                        trans-ethnic meta-analysis
+get_K_Fst               Construct the genetic similarity kernel matrix
+                        K
+get_K_indep             Construct the group-wise independent kernel
+                        matrix K
